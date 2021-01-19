@@ -1,0 +1,11 @@
+npm install -g expo-cli
+
+expo init react-native-sandbox
+
+cd react-native-sandbox
+npm start
+
+cd react-native-sandbox
+npm run android
+npm run ios
+npm run web
