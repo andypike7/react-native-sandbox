@@ -2,10 +2,12 @@ import React from 'react';
 // import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import NavBar from './NavBar';
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <NavBar color="yellow" />
       <Text>Open up App.tsx to start working on your app!</Text>
       <Image
         source={{
@@ -21,8 +23,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
 
