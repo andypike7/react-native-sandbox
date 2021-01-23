@@ -3,11 +3,13 @@ import React from 'react';
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import NavBar from './NavBar';
+import AddItem from './AddItem';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <NavBar color="yellow" />
+      <AddItem />
       <Text>Open up App.tsx to start working on your app!</Text>
       <Image
         source={{
