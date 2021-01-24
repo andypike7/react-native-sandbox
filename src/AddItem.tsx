@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Button } from 'react-native';
 
 interface Props {
@@ -6,15 +6,23 @@ interface Props {
 }
 
 export default function AddItem(props: Props) {
+  const [value, setValue] = useState('');
+
   const pressHandler = () => {
-    props.onAdd('[!!!]');
+    if (value.trim() !== '') {
+      props.onAdd(value.trim());
+      setValue('');
+    }
   };
 
   return (
     <View style={styles.view}>
       <TextInput
         style={styles.input}
+        value={value}
+        onChangeText={setValue}
         placeholder="Enter Todo..."
+        onSubmitEditing={pressHandler}
       />
       <Button
         title="Add"
