@@ -1,16 +1,24 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, Button } from 'react-native';
 
-export default function AddItem(props) {
+interface Props {
+  onAdd: (name: string) => void,
+}
+
+export default function AddItem(props: Props) {
+  const pressHandler = () => {
+    props.onAdd('[!!!]');
+  };
+
   return (
-    <View style={ styles.view }>
+    <View style={styles.view}>
       <TextInput
-        style={ styles.input }
+        style={styles.input}
         placeholder="Enter Todo..."
       />
       <Button
         title="Add"
-        onPress={ () => alert('!!!') }
+        onPress={pressHandler}
       />
     </View>
   );

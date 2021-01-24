@@ -1,16 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, /*FlatList,*/ Image } from 'react-native';
+// import { TextInput } from 'react-native-gesture-handler';
 import NavBar from './NavBar';
 import AddItem from './AddItem';
+import Item from './Item';
+
+interface Todo {
+  title: string,
+  id: string,
+}
 
 export default function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const addTodo = (title: string) => {
+    setTodos((state: any) => {
+      return [
+        ...state,
+        {
+          id: Date.now().toString(),
+          title,
+        },
+      ];
+    });
+  };
+
   return (
     <View style={styles.container}>
       <NavBar color="yellow" />
-      <AddItem />
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <AddItem onAdd={addTodo} />
+      <View>{
+          todos.map((todo: Todo) => {
+            // return <Item title={todo.title} key={index.toString()} key2="key2" />;
+            return <Text key={todo.id}>
+              {todo.title}
+            </Text>;
+          })
+      }</View>
       <Image
         source={{
           uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
@@ -24,9 +51,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     // alignItems: 'center',
     // justifyContent: 'center',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
   },
 });
 
