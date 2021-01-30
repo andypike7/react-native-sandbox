@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { StyleSheet, Text, View, /*FlatList,*/ Image } from 'react-native';
 // import { TextInput } from 'react-native-gesture-handler';
+import axios from 'axios';
 import NavBar from './NavBar';
 import AddItem from './AddItem';
 import Item from './Item';
