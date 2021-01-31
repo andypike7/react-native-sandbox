@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { StyleSheet, Text, View, /*FlatList,*/ Image } from 'react-native';
 // import { TextInput } from 'react-native-gesture-handler';
-import axios from 'axios';
+// import axios from 'axios';
 import NavBar from './NavBar';
 import AddItem from './AddItem';
 import Item from './Item';
@@ -10,13 +10,20 @@ import Item from './Item';
 interface Todo {
   id: number,
   title: string,
+  state?: false | true, // false, true
 }
 
 export default function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(
+    [
+      { id: 11, title: '2011' },
+      { id: 22, title: '2022' },
+      { id: 33, title: '2033' },
+    ]
+  );
 
   const addTodo = (title: string) => {
-    setTodos((state: any) => {
+    setTodos((state: Todo[]) => {
       return [
         ...state,
         {
@@ -27,12 +34,29 @@ export default function App() {
     });
   };
 
-  const removeTodo = (id: number) => {
-    setTodos((state: any) => {
-      let foundTodo = state.find((todo: Todo) => todo.id === id);
-      console.log(`*** foundTodo:`, foundTodo);
+  function findById(state: Todo[], id: number): number {
+    return state.findIndex((todo: Todo) => todo.id === id);
+  }
 
-      return state.splice(foundTodo.id, 1);
+  const doneTodo = (id: number) => {
+    setTodos((state: Todo[]) => {
+      let todoIndex = findById(state, id);
+
+      let newState = [...state];
+      newState[todoIndex].state = true;
+
+      return newState;
+    });
+  };
+
+  const removeTodo = (id: number) => {
+    setTodos((state: Todo[]) => {
+      let todoIndex = findById(state, id);
+
+      let newState = state.concat();
+      newState.splice(todoIndex, 1);
+
+      return newState;
     });
   };
 
@@ -47,6 +71,8 @@ export default function App() {
                 id={todo.id}
                 title={todo.title}
                 key={todo.id.toString()}
+                state={todo.state}
+                done={doneTodo}
                 remove={removeTodo}
               />
             );
