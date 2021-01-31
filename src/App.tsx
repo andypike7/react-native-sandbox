@@ -8,8 +8,8 @@ import AddItem from './AddItem';
 import Item from './Item';
 
 interface Todo {
+  id: number,
   title: string,
-  id: string,
 }
 
 export default function App() {
@@ -20,10 +20,19 @@ export default function App() {
       return [
         ...state,
         {
-          id: Date.now().toString(),
+          id: Date.now(),
           title,
         },
       ];
+    });
+  };
+
+  const removeTodo = (id: number) => {
+    setTodos((state: any) => {
+      let foundTodo = state.find((todo: Todo) => todo.id === id);
+      console.log(`*** foundTodo:`, foundTodo);
+
+      return state.splice(foundTodo.id, 1);
     });
   };
 
@@ -33,17 +42,21 @@ export default function App() {
       <AddItem onAdd={addTodo} />
       <View>{
           todos.map((todo: Todo) => {
-            // return <Item title={todo.title} key={index.toString()} key2="key2" />;
-            return <Text key={todo.id}>
-              {todo.title}
-            </Text>;
+            return (
+              <Item
+                id={todo.id}
+                title={todo.title}
+                key={todo.id.toString()}
+                remove={removeTodo}
+              />
+            );
           })
       }</View>
       <Image
         source={{
           uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
         }}
-        style={{ width: 200, height: 200 }}
+        style={{ width: 50, height: 50 }}
       />
     </View>
   );

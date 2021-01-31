@@ -1,11 +1,23 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Button, Text } from 'react-native';
 
-interface Item {
+interface ItemProps {
+  id: number,
   title: string,
-  key: string,
+  remove: (id: number) => void,
 }
 
-export default function Item(props: any) {
-  return <Text key={props.key}>{props.title} / {props.key}</Text>;
+export default function Item(props: ItemProps) {
+
+  function removeItem() {
+    props.remove(props.id)
+  }
+
+  return <Text>
+    [ {props.title} / {props.id} ]
+    <Button
+      title="X"
+      onPress={removeItem}
+    />
+  </Text>;
 }
